@@ -1,34 +1,52 @@
-import React, { useState } from "react";
 
-function Contact() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    message: "",
-  });
+/* File Name : Contact.js 
+   Studnet ID: 301415475
+   Name: Kevin Assuncao Rodrigues
+   Date : 2/4/2025
+ */
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Contact.css";
+import Navbar from "../pages/Navbar"; // Importing navbar
+
+const Contact = () => {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) => {/*Creating kind of pop up  to show the message  */
     e.preventDefault();
-    alert("Message sent!");
+    alert("Message sent successfully!");
+    setFormData({ name: "", email: "", message: "" });
   };
 
   return (
-    <div>
-      <h1>Contact Me</h1>
-      <form onSubmit={handleSubmit}>
-        <input name="firstName" placeholder="First Name" onChange={handleChange} required />
-        <input name="lastName" placeholder="Last Name" onChange={handleChange} required />
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
-        <textarea name="message" placeholder="Message" onChange={handleChange} required />
-        <button type="submit">Send</button>
+    <>
+    <div className="contact-section">
+    <Navbar /> 
+    <div className="contact-container">
+      
+      <h2>Contact Me</h2>
+      <form className="contact-form" onSubmit={handleSubmit}>  
+        <label>Name:</label>
+        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+
+        <label>Email:</label>
+        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+
+        <label>Message:</label>
+        <textarea name="message" value={formData.message} onChange={handleChange} required />
+        <Link to="/">
+          <button>Submit</button>
+         </Link>
       </form>
-    </div>
+      </div>
+</div>
+
+    </>
   );
-}
+};
 
 export default Contact;
